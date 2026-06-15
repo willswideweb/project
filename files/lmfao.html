@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #cacaff;
+            font-family: sans-serif;
+            box-sizing: border-box;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .image-pair {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .img-base, .img-overlay, .img-overlae {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            object-fit: cover;
+        }
+
+        .img-base {
+            z-index: 1;
+
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+  
+            -webkit-user-drag: none;
+            user-drag: none;
+  
+            pointer-events: none;
+        }
+
+        .img-overlay {
+            z-index: 2;
+            transition: opacity 120s ease-in-out; 
+            opacity: 1;
+
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+  
+            -webkit-user-drag: none;
+            user-drag: none;
+  
+            pointer-events: none;
+        }
+
+        .img-overlae {
+            z-index: 3;
+            opacity: 0.3;
+
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+  
+            -webkit-user-drag: none;
+            user-drag: none;
+  
+            pointer-events: none;
+        }
+
+        p {
+          display: block;
+          margin-bottom: 0; /* Adjust spacing as needed */
+        }
+
+        #militiaClock {
+          display: block;
+        }
+
+        .global-explanation {
+            font-size: 15px;
+            color: #444444;
+            text-align: center;
+            line-height: 1.6;
+            width: 100%;
+            max-width: 600px;
+            border-top: 1px solid #0000ff;
+            padding-top: 20px;
+            clear: both; /* Prevents any layout wrapping issues */
+        }
+    </style>
+</head>
+<body>
+
+        <div class="global-explanation">
+            <h1>Live Hotel Cam</h1>
+            <p>featuring live feeds of multiple angles of a hotel room</p>
+        </div>
+    </div>
+<br><br>        <div class="global-explanation">
+        </div>
+    </div>
+
+<div style="display: flex; flex-direction: column;">
+  <p>Webcam timestamp: </p>
+  <div class="military-clock" id="militiaClock"></div>
+</div>
+
+    <div class="grid-container">
+        <div class="image-pair">
+            <img border="5" src="https://d4hxylxpp6w6nl.archive.ph/NfJfq/499c08c8e8737933204307a5d123403eebb3c586" alt="" class="img-base">
+            <img src="https://d4hxylxpp6w6nl.archive.ph/NfJfq/adb04e2fb0cf887e8738c190e8bd9d56dbb6effd" alt="" class="img-overlay">
+            <img src="https://dcazmsb2ai3q42.archive.ph/62Sxm/cc5fc597ef6539c85ec3976a3cf3ae1f181bcfad" alt="" class="img-overlae">
+      </div>
+        <!-- Row 1, Col 2 -->
+        <div class="image-pair">
+            <img border="5" src="https://d6amsfvhpaybnv.archive.ph/NpEH7/660e82d49221f15362a68aeac56a3ff5dc229015" alt="" class="img-base">
+            <img src="https://d6amsfvhpaybnv.archive.ph/NpEH7/e0a3aaac524f2b98884dc2eecbf5ba29b7fe631c" alt="" class="img-overlay">
+            <img src="https://dcazmsb2ai3q42.archive.ph/62Sxm/68ffc8da2e3e8e26c024053d9a4dc02a2b2b677a" alt="" class="img-overlae">
+        </div>
+        <!-- Row 1, Col 3 -->
+        <div class="image-pair">
+            <img border="5" src="https://d4i5jyfz73dxli.archive.ph/k8z9U/63ea8a1cfed8ecada5d5b26d5a02e45547705e61" alt="" class="img-base">
+            <img src="https://d4i5jyfz73dxli.archive.ph/k8z9U/494217da67ed04b623dff0aaeea913bd32a42be6" alt="" class="img-overlay">
+            <img src="https://dcazmsb2ai3q42.archive.ph/62Sxm/f28bef74140f7663c49f4ce15987030671eee9ef" alt="" class="img-overlae">
+        </div>
+        <!-- Row 2, Col 1 -->
+        <div class="image-pair">
+            <img border="5" src="https://d4imzxmh2pja5y.archive.ph/b5wCC/c01ad1cba25c004652f78ce51b51a54d52940898" alt="" class="img-base">
+            <img src="https://d4imzxmh2pja5y.archive.ph/b5wCC/f82f76fa71b23970b7926e11dc2553f2476817a6" alt="" class="img-overlay">
+            <img src="https://dcazmsb2ai3q42.archive.ph/62Sxm/b3acd4760ecc20bf58eb2a3d7dd210d44931d12e" alt="" class="img-overlae">
+        </div>
+        <!-- Row 2, Col 2 -->
+        <div class="image-pair">
+            <img border="5" src="https://ddda1gz2rxndbh.archive.ph/BRGns/8bedfdce5273be109b455c39090165937257c1b2.png" alt="" class="img-base">
+            <img src="https://dcazmsb2ai3q42.archive.ph/62Sxm/b3acd4760ecc20bf58eb2a3d7dd210d44931d12e" alt="" class="img-overlae">
+        </div>
+        <!-- Row 2, Col 3 -->
+        <div class="image-pair">
+            <img border="5" src="https://d64b9hh2lafq2x.archive.ph/NfJfq/f9b46cd7d622b84e8ca27de4e5ebfa4b6750eae9" alt="" class="img-base">
+        </div>
+    </div>
+
+        <div class="global-explanation">
+            <p>welcome to our live hotel cam! this site allows you to view a live feed within a hotel room.<br><br>for background, me and my partner visited a hotel in the west side of north america. we booked for room 414. once we entered the room we immediatley began mapping out the room and setting up our equipment. live cameras were placed in the thermostat, bathroom, alarm clock, closet, peephole and the hotel pool. along with this we placed an audio recorder behind the television (click anywhere on screen to hear live audio) we then preformed camera tests in the room and embedded the feeds to this page. we then checked out and went back to our hometowns. <br><br>as of today the room is unoccupied by guests but we expect this to change in the following months. it is reccomended you regularly check back on the webcams to see if anyone has checked into the room. sadly our pool cam has recently gone offline. though it should be a quick fix, unfortunatley the amount of people that visit the pool regularly makes it unlikely we will be able to fix it anytime soon without getting caught. these webcams can run for years on end, provided they are not tampered with. to avoid tampering, the exact hotel will not be stated. we apologize for the low quality of the feeds however any higher quality camera would get caught almost immediatley, these feeds are closer to images that are updated periodically (1 per 5 sec)<br><br>we sincerly hope our webcams are a place of interest for you to visit in the coming months! if you believe you have found the room please do not disclose the location. thank you for visiting this page and thank you for tuning in!</p>
+        </div>
+    </div>
+<br><br>
+        <div class="global-explanation">
+            <h1>Thermostat Cam (Top Left feed)</h1>
+            <p>this webcam was rigged into the pre-existing hotel room thermostat. it is arguably the most detailed webcam, capturing the bed, nightstand, and the curtain and windows. it offers life view of where someone would be sleeping during the night. when the thermostat is used, the camera automatically goes offline to prevent detection, and uses motion sensors to determine when to go back online. this was the first camera we installed.</p>
+        </div>
+    </div>
+
+    <script>
+        function updateOverlayOpacity() {
+            const now = new Date();
+            const hour = now.getHours(); // Returns 0-23 military hour format
+            let opacity = 1;
+
+            // Completely invisible: Hours 9 through 16 (9:00 AM to 4:59 PM)
+            if (hour >= 9 && hour <= 16) {
+                opacity = 0;
+            }
+            // Completely visible: Hours 21 through 5 (9:00 PM to 5:59 AM)
+            else if (hour >= 21 || hour <= 5) {
+                opacity = 1;
+            }
+            // Morning decrease hours: 6, 7, 8
+            else if (hour >= 6 && hour <= 8) {
+                if (hour === 6) opacity = 0.75;
+                if (hour === 7) opacity = 0.50;
+                if (hour === 8) opacity = 0.25;
+            }
+            // Evening increase hours: 17, 18, 19, 20
+            else if (hour >= 17 && hour <= 20) {
+                if (hour === 17) opacity = 0.20;
+                if (hour === 18) opacity = 0.40;
+                if (hour === 19) opacity = 0.60;
+                if (hour === 20) opacity = 0.80;
+            }
+
+            // Apply opacity to all overlay images
+            const overlays = document.querySelectorAll('.img-overlay');
+            overlays.forEach(img => {
+                img.style.opacity = opacity;
+            });
+        }
+
+        // Run on page load
+        updateOverlayOpacity();
+
+        // Check and update every minute to stay accurate
+        setInterval(updateOverlayOpacity, 100);
+    </script>
+<script>
+  function updateMilitaryTime() {
+    const now = new Date();
+    
+    // Get 24-hour format hours, minutes, and seconds
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    
+    // Combine into standard HH:MM:SS string
+    document.getElementById('militiaClock').textContent = `${hours}:${minutes}:${seconds}`;
+  }
+
+  // Run the function once immediately to avoid blank space on load
+  updateMilitaryTime();
+
+  // Update every 4000 milliseconds (4 seconds)
+  setInterval(updateMilitaryTime, 1);
+</script>
+</body>
+</html>
+</body>
+</html>
