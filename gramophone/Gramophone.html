@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gramophone</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://willswideweb.github.io/project/files/gramophone.png">
+    <style>
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #000000;
+            font-family: sans-serif;
+            box-sizing: border-box;
+        }
+
+        p {
+          display: block;
+          margin-bottom: 0; /* Adjust spacing as needed */
+          color: #926d00;
+          font-size: 23px;
+        }
+
+        h1 {
+          color: #808080;
+        }
+
+        .global-explanation {
+            font-size: 15px;
+            color: #444444;
+            text-align: center;
+            line-height: 1.6;
+            width: 100%;
+            max-width: 600px;
+            border-top: 1px solid #ffffff;
+            padding-top: 20px;
+            clear: both; /* Prevents any layout wrapping issues */
+        }
+    </style>
+</head>
+<body>
+
+<audio id="background-audio" loop>
+  <source src="https://willswideweb.github.io/project/files/MyOldKentuckyHome_GeorgeGaskin_1895.ogg" type="audio/mpeg">
+  sorry the gramophone malfunctioned :-(
+</audio>
+
+            <h1>Gramophone</h1>
+            <img width="640" height="480" src="https://willswideweb.github.io/project/files/gramophone.png">
+<br><br>
+            <div class="global-explanation"><p>welcome, internet surfer, it appears you are very tired and/or stressed about something else. perhaps you needs some rest, or peace of mind. click to turn on the gramophone and tune in on george r. gaskin's 1895 cover of the 1853 song 'my old kentucky home' by stephen foster. take all your time, you need your rest.
+        </div>
+    </div>
+<br><br>
+        <div class="global-explanation">
+        </div>
+    </div>
+
+<script>
+  const audio = document.getElementById('background-audio');
+
+  document.addEventListener('click', function startAudio() {
+    audio.play().catch(error => {
+      console.log("play the gramophone", error);
+    });
+    
+    document.removeEventListener('click', startAudio);
+  }, { once: true });
+</script>
+</body>
+</html>
