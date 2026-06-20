@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ultimate Stopwatch</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="https://willswideweb.github.io/project/files/watch.png">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+    }
+    #stopwatch {
+      font-size: 2.2em;
+      margin-bottom: 10px;
+      font-family: monospace;
+      white-space: nowrap;
+    }
+    p {
+      font-size: 1em;
+      color: #555;
+      margin-bottom: 20px;
+      text-align: center;
+      max-width: 600px;
+    }
+    button {
+      font-size: 1em;
+      padding: 8px 16px;
+      margin: 5px;
+      cursor: pointer;
+    }
+
+    #imagetitle {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0;
+          }
+  </style>
+</head>
+<body>
+  <img id="imagetitle" src="https://willswideweb.github.io/project/files/stopwatitle.PNG" width="480" height="89.625">
+  <div id="stopwatch">00:00:00:00:00:00:00:00:00:00:00:00:00:00</div>
+  <p>Contains milliseconds, seconds, minutes, hours, days, weeks, months, years, decades, centuries, millennia, megaanna, eons, and supereon.</p>
+  <div>
+    <button id="startBtn" onclick="startStopwatch()">Start</button>
+    <button onclick="stopStopwatch()">Stop</button>
+    <button onclick="resetStopwatch()">Reset</button>
+  </div>
+
+  <script>
+    let timerInterval = null;
+    let startTime = 0;
+    let elapsedTime = 0;
+    let isRunning = false;
+
+    const MS_PER_SEC       = 1000;
+    const MS_PER_MIN       = MS_PER_SEC * 60;
+    const MS_PER_HR        = MS_PER_MIN * 60;
+    const MS_PER_DAY       = MS_PER_HR * 24;
+    const MS_PER_WEEK      = MS_PER_DAY * 7;
+    const MS_PER_MONTH     = MS_PER_DAY * 30.4375;
+    const MS_PER_YEAR      = MS_PER_DAY * 365.25;
+    const MS_PER_DECADE    = MS_PER_YEAR * 10;
+    const MS_PER_CENTURY   = MS_PER_YEAR * 100;
+    const MS_PER_MILLENNIUM= MS_PER_YEAR * 1000;
+    const MS_PER_MEGAANNUM = MS_PER_YEAR * 1000000;
+    const MS_PER_EON       = MS_PER_YEAR * 1000000000;
+    const MS_PER_SUPEREON  = MS_PER_EON * 3;
+
+    function startStopwatch() {
+      if (!isRunning) {
+        isRunning = true;
+        document.getElementById('startBtn').disabled = true;
+        startTime = Date.now() - elapsedTime;
+        timerInterval = setInterval(updateStopwatch, 30);
+      }
+    }
+
+    function stopStopwatch() {
+      if (isRunning) {
+        clearInterval(timerInterval);
+        elapsedTime = Date.now() - startTime;
+        isRunning = false;
+        document.getElementById('startBtn').disabled = false;
+      }
+    }
+
+    function resetStopwatch() {
+      clearInterval(timerInterval);
+      isRunning = false;
+      elapsedTime = 0;
+      startTime = 0;
+      document.getElementById('startBtn').disabled = false;
+      displayTime(0);
+    }
+
+    function updateStopwatch() {
+      const currentElapsed = Date.now() - startTime;
+      displayTime(currentElapsed);
+    }
+
+    function displayTime(totalMs) {
+      let remainder = totalMs;
+
+      const supereon = Math.floor(remainder / MS_PER_SUPEREON);
+      remainder %= MS_PER_SUPEREON;
+
+      const eon = Math.floor(remainder / MS_PER_EON);
+      remainder %= MS_PER_EON;
+
+      const megaannum = Math.floor(remainder / MS_PER_MEGAANNUM);
+      remainder %= MS_PER_MEGAANNUM;
+
+      const millennia = Math.floor(remainder / MS_PER_MILLENNIUM);
+      remainder %= MS_PER_MILLENNIUM;
+
+      const centuries = Math.floor(remainder / MS_PER_CENTURY);
+      remainder %= MS_PER_CENTURY;
+
+      const decades = Math.floor(remainder / MS_PER_DECADE);
+      remainder %= MS_PER_DECADE;
+
+      const years = Math.floor(remainder / MS_PER_YEAR);
+      remainder %= MS_PER_YEAR;
+
+      const months = Math.floor(remainder / MS_PER_MONTH);
+      remainder %= MS_PER_MONTH;
+
+      const weeks = Math.floor(remainder / MS_PER_WEEK);
+      remainder %= MS_PER_WEEK;
+
+      const days = Math.floor(remainder / MS_PER_DAY);
+      remainder %= MS_PER_DAY;
+
+      const hours = Math.floor(remainder / MS_PER_HR);
+      remainder %= MS_PER_HR;
+
+      const minutes = Math.floor(remainder / MS_PER_MIN);
+      remainder %= MS_PER_MIN;
+
+      const seconds = Math.floor(remainder / MS_PER_SEC);
+      remainder %= MS_PER_SEC;
+
+      const ms = remainder;
+
+      const parts = [
+        supereon, eon, megaannum, millennia, centuries, 
+        decades, years, months, weeks, days, 
+        hours, minutes, seconds
+      ].map(num => num.toString().padStart(2, '0'));
+
+      parts.push(Math.floor(ms / 10).toString().padStart(2, '0'));
+
+      document.getElementById('stopwatch').innerText = parts.join(':');
+    }
+  </script>
+</body>
+</html>
