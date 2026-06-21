@@ -3,7 +3,7 @@
 }
 
 body { 
-    background-image: url("https://willswideweb.github.io/project/files/IMG_0847.GIF");
+    background-image: url("https://willswideweb.github.io/project/files/IMG_0847.gif");
     margin: 0;
     padding: 0;
     font: 12px/32px monospace;
@@ -47,7 +47,7 @@ a {color: rgba(255, 216, 0, 1);}
 }
 
 @media only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
-    body { background: url(https://willswideweb.github.io/project/files/IMG_0847.GIF); background-size: 384px 80px; }
+    body { background: url(https://willswideweb.github.io/project/files/IMG_0847.gif); background-size: 384px 80px; }
 }
 
 .centre {
