@@ -35,6 +35,11 @@ a {color: rgba(255, 216, 0, 1);}
     float: right;
 }
 
+.donate {
+    float: right;
+    margin: 3px 7px 0;
+}
+
 #helptext {
     float: left;
     margin: 0 10px 0;
@@ -71,6 +76,32 @@ a {color: rgba(255, 216, 0, 1);}
     opacity: 0.3;
 }
 
+.playBut {
+    display: inline-block;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s ease;
+	filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+}
+
+.playBut .triangle {
+    transition: all 0.7s ease-in-out;
+    stroke-dasharray: 240;
+    stroke-dashoffset: 480;
+    stroke: #FFF;
+    transform: translateY(0);
+}
+
+.playBut:hover .triangle {
+    stroke-dashoffset: 0;
+    opacity: 1;
+    stroke: #f8aa28;
+    animation: nudge 0.7s ease-in-out;
+	filter: drop-shadow(0 0 10px rgba(255, 216, 0, 0.9));
+}
+
 @keyframes nudge {
     0% {
     transform: translateX(0);
@@ -87,6 +118,11 @@ a {color: rgba(255, 216, 0, 1);}
     100% {
     transform: translateX(0);
   }
+}
+
+.playBut:hover .circle {
+    stroke-dashoffset: 0;
+    opacity: 1;
 }
 
 #runtime {
