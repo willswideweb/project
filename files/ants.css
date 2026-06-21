@@ -3,7 +3,7 @@
 }
 
 body { 
-    background-image: url("https://willswideweb.github.io/project/files/IMG_0847.gif");
+    background-image: url("https://willswideweb.github.io/project/files/IMG_0847.GIF");
     margin: 0;
     padding: 0;
     font: 12px/32px monospace;
@@ -35,6 +35,11 @@ a {color: rgba(255, 216, 0, 1);}
     float: right;
 }
 
+.donate {
+    float: right;
+    margin: 3px 7px 0;
+}
+
 #helptext {
     float: left;
     margin: 0 10px 0;
@@ -42,7 +47,7 @@ a {color: rgba(255, 216, 0, 1);}
 }
 
 @media only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
-    body { background: url(https://willswideweb.github.io/project/files/IMG_0847.gif); background-size: 384px 80px; }
+    body { background: url(https://willswideweb.github.io/project/files/IMG_0847.GIF); background-size: 384px 80px; }
 }
 
 .centre {
@@ -71,6 +76,32 @@ a {color: rgba(255, 216, 0, 1);}
     opacity: 0.3;
 }
 
+.playBut {
+    display: inline-block;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s ease;
+	filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+}
+
+.playBut .triangle {
+    transition: all 0.7s ease-in-out;
+    stroke-dasharray: 240;
+    stroke-dashoffset: 480;
+    stroke: #FFF;
+    transform: translateY(0);
+}
+
+.playBut:hover .triangle {
+    stroke-dashoffset: 0;
+    opacity: 1;
+    stroke: #f8aa28;
+    animation: nudge 0.7s ease-in-out;
+	filter: drop-shadow(0 0 10px rgba(255, 216, 0, 0.9));
+}
+
 @keyframes nudge {
     0% {
     transform: translateX(0);
@@ -87,6 +118,11 @@ a {color: rgba(255, 216, 0, 1);}
     100% {
     transform: translateX(0);
   }
+}
+
+.playBut:hover .circle {
+    stroke-dashoffset: 0;
+    opacity: 1;
 }
 
 #runtime {
