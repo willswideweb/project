@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fortune Cookie</title>
+  <link rel="icon" href="https://willswideweb.github.io/project/files/cookie.PNG" type="image/x-icon">
+  <style>
+    body,
+    .fortune-message,
+    .broken-cookie-text {
+      color: #000000;
+    }
+
+    body {
+      background-color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .fortune-cookie {
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .cookie-wrapper {
+      position: relative;
+      text-align: center;
+    }
+
+    .cookie-inner {
+      width: 120px;
+      height: 120px;
+      background: url('https://willswideweb.github.io/project/files/cookie.PNG') no-repeat center center;
+      background-size: cover;
+      position: relative;
+      display: inline-block;
+      transition: opacity 0.5s ease;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    /* Rip cookie */
+    .cookie-inner.new-image {
+      background: url('https://willswideweb.github.io/project/files/cookie-snap.PNG') no-repeat center center;
+      background-size: cover;
+    }
+
+    .fortune-message {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #000;
+      font-weight: bold;
+    }
+
+    .broken-cookie {
+      display: none;
+    }
+
+    .broken-cookie-left,
+    .broken-cookie-right {
+      width: 0;
+      height: 100%;
+      background: url('https://willswideweb.github.io/project/files/cookie.PNG') no-repeat center center;
+      background-size: cover;
+      position: absolute;
+      top: 0;
+      transition: width 0.5s ease;
+    }
+
+    .broken-cookie-left {
+      left: 0;
+    }
+
+    .broken-cookie-right {
+      right: 0;
+    }
+
+    .broken-cookie-text {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      color: #000000;
+      font-weight: bold;
+      z-index: 1;
+      width: 150px;
+    }
+  </style>
+</head>
+<body>
+
+<audio id="crackSound" src="https://willswideweb.github.io/project/files/cookie.ogg"></audio>
+
+<div class="fortune-cookie" onclick="breakCookie()">
+  <div class="cookie-wrapper">
+    <div class="cookie-inner" id="cookie" onclick="changeImage()"></div>
+    <div class="fortune-message" id="message"></div>
+  </div>
+  <div class="broken-cookie" id="brokenCookie">
+    <div class="broken-cookie-left"></div>
+    <div class="broken-cookie-right"></div>
+    <div class="broken-cookie-text" id="brokenMessage"></div>
+  </div>
+</div>
+
+<script>
+  let cookieClicked = false;
+
+  function breakCookie() {
+    if (cookieClicked) {
+      return;
+    }
+
+    const cookie = document.getElementById("cookie");
+    const brokenCookie = document.getElementById("brokenCookie");
+    const message = document.getElementById("message");
+    const brokenMessage = document.getElementById("brokenMessage");
+    const crackSound = document.getElementById("crackSound");
+
+    const messages = [
+      "A moose is rapidly approaching you.",
+      "Expect good things today.",
+      "You will get the best news of your life today.",
+      "You will soon get rickrolled.",
+      "Your heart will stop beating in a few hours.",
+      "Expect bad things today.",
+      "You will get the worst news of your life today.",
+      "You are going to rage quit soon.",
+      "Embrace change for success.",
+      "Expect good luck.",
+      "Surprising joy awaits.",
+      "A close friend brings happiness.",
+      "A gift brings smiles.",
+      "Challenges lead to success.",
+      "New adventure ahead.",
+      "Positive things coming.",
+      "Take a chance, it's worth it.",
+      "Conquer your fear today.",
+      "just wrap it up gng lmfao",
+      "Believe, you've got potential.",
+      "Let go for a bright future.",
+      "Find joy in small things.",
+      "Dream big, you're capable.",
+      "Success is hard work.",
+      "Luck helps achieve goals.",
+      "Determination leads to success.",
+      "Self-care, you deserve it.",
+      "Embrace the unexpected.",
+      "Take risks, magic happens.",
+      "Great things need risks.",
+      "Stay patient, good things come.",
+      "Spread positivity around.",
+      "Trust your instincts.",
+      "You can turn any situation positive.",
+      "Good fortune comes unexpectedly.",
+      "Miracles happen every day.",
+      "Kindness attracts abundance.",
+      "Stay focused, success nears.",
+      "Setbacks lead to comebacks.",
+      "Keep your head high.",
+      "Unique talents bring success.",
+      "Never stop learning.",
+      "Determination overcomes obstacles.",
+      "Take time for yourself.",
+      "Positive mindset, positive outcomes.",
+      "Believe in yourself, amazing things.",
+      "Courage counts, keep going.",
+      "Embrace change, face challenges.",
+      "Expect misfortune today.",
+      "Unpleasant news awaits.",
+      "A friend might disappoint.",
+      "A loss may bring sadness.",
+      "Challenges may overwhelm.",
+      "Adventure with uncertainty.",
+      "Prepare for tough times.",
+      "Take a chance, risk failure.",
+      "Fear might immobilize you.",
+      "Don't expect things to work out.",
+      "Doubt your potential today.",
+      "Let go, uncertain future.",
+      "Find joy in the bleak.",
+      "Limit your dreams, doubt capacity.",
+      "Success requires hard work.",
+      "Luck alone won't help.",
+      "Determination alone may fail.",
+      "Forget self-care, others come first.",
+      "Expect the unexpected, brace yourself.",
+      "Take risks, regret awaits.",
+      "Great things aren't guaranteed.",
+      "Stay patient, disappointment awaits.",
+      "Spread negativity around.",
+      "Your instincts might fail.",
+      "Some situations can't be positive.",
+      "Bad luck can strike unexpectedly.",
+      "Miracles are rare",
+      "Womp womp",
+      "No effort, no results!",
+      "Embrace change and embrace growth.",
+      "Life is full of wonderful possibilities.",
+      "Discover beauty in unexpected moments.",
+      "A loyal friend brings immense happiness.",
+      "Kind gestures warm hearts and souls.",
+      "Challenges mold us into stronger beings.",
+      "Explore uncharted territories with unwavering curiosity.",
+      "Positivity breeds happiness and attracts success.",
+      "Seize opportunities with confidence and determination.",
+      "Overcome fears and unlock your true potential.",
+      "Trust the process and savor the journey.",
+      "Unleash your inner fire and embrace greatness.",
+      "Embrace uncertainty with open arms and flourish.",
+      "Discover happiness even in the smallest details.",
+      "Dream big and believe in your capabilities.",
+      "Success demands dedication and unwavering perseverance.",
+      "Luck favors the prepared and proactive.",
+      "Determination paves the pathway to triumph.",
+      "Prioritize self-care and nourish your soul.",
+      "Embrace unexpected situations and their valuable lessons.",
+      "Take calculated risks for exciting growth opportunities.",
+      "Great achievements lie outside the comfort zone.",
+      "Patience leads to rewards and profound fulfillment.",
+      "Spread kindness abundantly and witness its magic.",
+      "Follow your intuition; it knows your true desires.",
+      "Turn every situation into a positive and learn.",
+      "Fortune smiles upon those who dare to dream.",
+      "Miracles happen when belief intertwines with action.",
+      "Generosity breeds abundance in all aspects.",
+      "Focus and persistence are the keys to success.",
+      "Turn setbacks into stepping stones and soar higher.",
+      "Keep your head high; brighter days are imminent.",
+      "Embrace your unique gifts and let them shine.",
+      "Never stop learning; knowledge fuels limitless growth.",
+      "Determination conquers all obstacles with unwavering tenacity.",
+      "Prioritize self-love and embrace your worthiness.",
+      "A positive mindset attracts positive outcomes and experiences.",
+      "Believe in yourself, for you are capable of greatness.",
+      "Courage unlocks limitless possibilities and potential.",
+      "Fear the unknown and restrict your growth.",
+      "Misfortune can strike when least expected.",
+      "Prepare for unwelcome surprises and challenges ahead.",
+      "Beware of a close friend's hidden intentions.",
+      "Loss and disappointment can leave a lasting mark.",
+      "Challenges can overwhelm and hinder progress.",
+      "Uncertainty breeds discomfort and unnecessary anxiety.",
+      "Be prepared for difficult times and tough choices.",
+      "Taking risks can lead to regret and loss.",
+      "Fear holds you back from reaching your true potential.",
+      "Expect the worst and hope for the best.",
+      "Doubt your abilities and limit your possibilities.",
+      "Embrace stagnation and fear change and evolution.",
+      "Find despair even in the most joyful moments.",
+      "Suppress your dreams and question your worth.",
+      "Success comes at a great cost and sacrifice.",
+      "Luck rarely favors those who are unprepared.",
+      "Determination alone may not be enough to succeed.",
+      "Neglecting self-care leads to burnout and exhaustion.",
+      "Expect the worst in every situation and guard yourself.",
+      "Taking risks often result in costly mistakes.",
+      "Great things rarely come to fruition; dreams fade away.",
+      "Impatience brings disappointment and frustration.",
+      "Spread negativity and watch it poison your world.",
+      "Distrust your instincts, you have a drug addiction.",
+      "Some situations are irrevocably negative and challenging.",
+      "Bad luck seems to follow you relentlessly.",
+      "Miracles are merely wishful thinking and illusions.",
+      "Kindness is often taken for granted and unappreciated.",
+      "Focus alone may not bring the desired success.",
+      "Setbacks can create significant obstacles and hinder progress.",
+      "Stay unnoticed to avoid undue attention and scrutiny.",
+      "Talents go unrecognized without luck and connections.",
+      "Ignorance is bliss, knowledge brings only pain.",
+      "Determination is futile in the face of insurmountable barriers.",
+      "Forget self-care, it is a mere indulgence.",
+      "Negative thoughts manifest negative outcomes consistently.",
+      "Doubt yourself relentlessly, for your potential is limited.",
+      "Sometimes quitting is the only sensible option.",
+      "All you bring is shame and embarrassment to those who know you.",
+      // This is the secret ultimate fortune: visit deathclock.com to find your date of death
+    ];
+
+    const randomIndex = Math.floor(Math.random() * messages.length);
+    const randomMessage = messages[randomIndex];
+
+    crackSound.play();
+
+    cookie.style.opacity = 0;
+    cookieClicked = true;
+
+    brokenCookie.style.display = "block";
+    brokenCookie.style.opacity = 1;
+
+    setTimeout(() => {
+      message.innerHTML = randomMessage;
+      brokenMessage.innerHTML = randomMessage;
+      message.style.display = "block";
+      brokenMessage.style.display = "block";
+    }, 1000);
+
+    brokenCookie.classList.add("animate");
+    brokenMessage.classList.add("animate");
+  }
+
+  function changeImage() {
+    const cookie = document.getElementById("cookie");
+    cookie.classList.add("new-image");
+  }
+</script>
+
+</body>
+</html>
