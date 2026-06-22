@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Is It Leap Day?</title>
+</head>
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
+<body>
+
+    <div id="wordContainer" class="word-display"></div>
+
+    <div>
+           <p>come back again in <span id="days">00</span> day(s).</p>
+    </div>
+
+    <script>
+        function isLeapYear(year) {
+            return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+        }
+
+        function getNextLeapYearDate() {
+            const today = new Date();
+            let currentYear = today.getFullYear();
+            
+            while (!isLeapYear(currentYear)) {
+                currentYear++;
+            }
+            
+            return new Date(currentYear, 1, 29, 0, 0, 0); 
+        }
+
+        const targetDate = getNextLeapYearDate();
+
+        function updateTimer() {
+            const now = new Date();
+            const difference = targetDate - now;
+
+            if (difference <= 0) {
+                targetDate = getNextLeapYearDate();
+                return updateTimer();
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+
+            document.getElementById('days').textContent = days;
+        }
+
+        setInterval(updateTimer, 1000);
+        
+        updateTimer();
+    </script>
+    <script>
+        const date = new Date();
+        const month = date.getMonth();
+        const day = date.getDate();
+
+        // Check if it is February 29
+        if (month === 1 && day === 29) {
+            document.getElementById('wordContainer').textContent = "yes…";
+        } else {
+            document.getElementById('wordContainer').textContent = "no…";
+        }
+    </script>
+
+</body>
+</html>
