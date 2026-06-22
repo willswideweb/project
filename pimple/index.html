@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pimple Pop</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: #f2c190;
+            overflow: hidden;
+            position: relative;
+        }
+        img {
+            position: absolute;
+            width: 75px;
+            height: 75px;
+            cursor: pointer;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: transform 0.2s;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    const startSrc = "https://i.ibb.co/3yvGx7qY/Untitled2030-20260621194606.png";
+    const change1  = "https://i.ibb.co/qMHkHPC5/Untitled2030-20260621194644.png";
+    const change2 = "https://i.ibb.co/LdS8zgSQ/Untitled2030-20260621195736.png"
+    const change3  = "https://i.ibb.co/v62HknS5/Untitled2030-20260621194910.png";
+    const change4  = "https://i.ibb.co/NnHM72Gg/Untitled2030-20260621194921.png";
+    const finalSrc = "https://i.ibb.co/GvKT4gVz/Untitled2030-20260621194915.png";
+
+    const totalImages = 25;
+    const imgSize = 100;
+    const placedPositions = [];
+
+    function isOverlapping(x, y) {
+        for (let pos of placedPositions) {
+            if (!(x + imgSize <= pos.x || 
+                  x >= pos.x + imgSize || 
+                  y + imgSize <= pos.y || 
+                  y >= pos.y + imgSize)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    for (let i = 0; i < totalImages; i++) {
+        const img = document.createElement('img');
+        img.src = startSrc;
+        
+        let randomX, randomY;
+        let attempts = 0;
+        const maxAttempts = 2000;
+
+        do {
+            randomX = Math.random() * (window.innerWidth - imgSize);
+            randomY = Math.random() * (window.innerHeight - imgSize);
+            attempts++;
+        } while (isOverlapping(randomX, randomY) && attempts < maxAttempts);
+
+        placedPositions.push({ x: randomX, y: randomY });
+        
+        img.style.left = `${randomX}px`;
+        img.style.top = `${randomY}px`;
+
+        img.addEventListener('click', function() {
+            if (img.classList.contains('animated')) return;
+            img.classList.add('animated');
+
+            img.src = change1;
+
+            setTimeout(() => {
+                img.src = change2;
+            }, 70);
+
+            setTimeout(() => {
+                img.src = change3;
+            }, 140);
+
+            setTimeout(() => {
+                img.src = change4;
+            }, 210);
+
+            setTimeout(() => {
+                img.src = finalSrc;
+            }, 280);
+        });
+
+        document.body.appendChild(img);
+    }
+</script>
+
+</body>
+</html>
