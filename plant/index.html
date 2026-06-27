@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<title>IS THAT A MFING PLANT!!?!?</title>
+<link rel="icon" type="image/vnd.microsoft.icon" sizes="32x32" href="https://willswideweb.github.io/project/files/plant.ico">
+<body bgcolor="gray">
+
+<audio id="background-audio" loop>
+  <source src="https://willswideweb.github.io/project/files/There-it-is-by-Kevin-Macleod-1%202.mp3" type="audio/mpeg">
+  get a better browser because what kind of browser cant play sound
+</audio>
+
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; text-align: center;">
+    <p>Z0MG its a plant! Wat species tho???</p>
+    <img src="https://willswideweb.github.io/project/files/plant.heic" width="400" height="400" style="border: 5px solid black;">
+    <br><p style="font-size: 11px;">"There It Is" by Kevin MacLeod (click to listen)</p>
+</div>
+
+<script>
+  const audio = document.getElementById('background-audio');
+
+  document.addEventListener('click', function startAudio() {
+    audio.play().catch(error => {
+      console.log("play the gramophone", error);
+    });
+    
+    document.removeEventListener('click', startAudio);
+  }, { once: true });
+</script>
+
+</body>
+</html>
