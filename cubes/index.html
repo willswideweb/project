@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cubes</title>
+    <link rel="icon" href="https://willswideweb.github.io/project/files/cube.ico" type="image/x-icon">
+    <style>
+        body { margin: 0; overflow: hidden; }
+        #clearButton {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+        }
+        #shockwaveButton {
+            position: absolute;
+            top: 10px;
+            left: 100px;
+            z-index: 1;
+        }
+        #cubeSizeInput {
+            position: absolute;
+            top: 10px;
+            left: 200px;
+            z-index: 1;
+        }
+        #title {
+            position: fixed;
+            top: 10px;
+            left: 98%;
+            transform: translateX(-98%);
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <button id="clearButton" onclick="clearCubes()">clear cubes</button>
+    <button id="shockwaveButton" onclick="createShockwave()">explode</button>
+    <img id="title" src="https://willswideweb.github.io/project/files/cubes.GIF" width="150" height="50">
+    <input type="text" id="cubeSizeInput" placeholder="cube size" oninput="updateCubeSize(this.value)"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const cubes = [];
+        let cubeSize = 1;
+
+        function createCube() {
+            const width = cubeSize;
+            const height = cubeSize;
+            const depth = cubeSize;
+
+            const geometry = new THREE.BoxGeometry(width, height, depth);
+            const material = new THREE.MeshPhongMaterial({ color: Math.random() * 0xffffff });
+            const cube = new THREE.Mesh(geometry, material);
+
+            cube.position.x = Math.random() * 10 - 5;
+            cube.position.y = 30;
+            cube.position.z = Math.random() * 10 - 5;
+
+            cube.velocity = new THREE.Vector3(
+                Math.random() * 0.2 - 0.1,
+                Math.random() * 0.2 - 0.1,
+                Math.random() * 0.2 - 0.1
+            );
+
+            cube.isRolling = true;
+            cube.angularVelocity = 0.1;
+
+            scene.add(cube);
+            cubes.push(cube);
+        }
+
+        function clearCubes() {
+            while (cubes.length > 0) {
+                const cube = cubes.pop();
+                scene.remove(cube);
+            }
+        }
+
+        const groundGeometry = new THREE.PlaneGeometry(99999, 99999);
+        const groundMaterial = new THREE.MeshPhongMaterial({ color: 0x3ba043 });
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = -Math.PI / 2;
+        ground.position.y = -2;
+        scene.add(ground);
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(1, 1, 1);
+        scene.add(directionalLight);
+
+        function handleCubeCollisions() {
+            for (let i = 0; i < cubes.length; i++) {
+                const cube1 = cubes[i];
+                for (let j = i + 1; j < cubes.length; j++) {
+                    const cube2 = cubes[j];
+                    if (checkCollision(cube1, cube2)) {
+                        resolveCollision(cube1, cube2);
+                    }
+                }
+            }
+        }
+
+        function checkCollision(cube1, cube2) {
+            const distX = Math.abs(cube1.position.x - cube2.position.x);
+            const distY = Math.abs(cube1.position.y - cube2.position.y);
+            const distZ = Math.abs(cube1.position.z - cube2.position.z);
+
+            return distX < cubeSize && distY < cubeSize && distZ < cubeSize;
+        }
+
+        function resolveCollision(cube1, cube2) {
+            const tempVelocity = cube1.velocity.clone();
+            cube1.velocity.copy(cube2.velocity);
+            cube2.velocity.copy(tempVelocity);
+        }
+
+        function updateCubePositions() {
+            for (let i = 0; i < cubes.length; i++) {
+                const cube = cubes[i];
+
+                cube.position.add(cube.velocity);
+                cube.velocity.y -= 0.01;
+
+                if (cube.position.y < 0) {
+                    cube.velocity.y *= -0.9;
+                    cube.position.y = 0;
+                }
+
+                cube.velocity.multiplyScalar(0.99);
+            }
+        }
+
+        function updateCubeRotations() {
+            for (let i = 0; i < cubes.length; i++) {
+                const cube = cubes[i];
+
+                if (cube.isRolling) {
+                    cube.rotation.x += cube.angularVelocity;
+                    cube.rotation.y += cube.angularVelocity;
+                    cube.rotation.z += cube.angularVelocity;
+                }
+            }
+        }
+
+        function createShockwave() {
+            const origin = new THREE.Vector3(0, 0, 0);
+            for (let i = 0; i < cubes.length; i++) {
+                const cube = cubes[i];
+                const blastDirection = cube.position.clone().sub(origin).normalize();
+                const blastForce = 2;
+                cube.velocity.add(blastDirection.multiplyScalar(blastForce));
+            }
+        }
+
+        function updateCubeSize(size) {
+            const validSize = /^[0-9]+(\.[0-9]*)?$/.test(size);
+            if (validSize) {
+                cubeSize = parseFloat(size);
+            } else if (size === "") {
+                cubeSize = 1;
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            updateCubePositions();
+            handleCubeCollisions();
+            updateCubeRotations();
+
+            renderer.render(scene, camera);
+        }
+
+        setInterval(() => {
+            if (cubes.length < 99999999999999999999999999999999999999999999999999999999999999999999999999999) {
+                createCube();
+            }
+        }, 0);
+
+        camera.position.set(0, 10, 20);
+
+        animate();
+    </script>
+</body>
+</html>
