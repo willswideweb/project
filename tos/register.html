@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Terms of Service</title>
+</head>
+<style>
+
+    #messageContainer {
+      border: 2px solid #555;
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 20px;
+      max-width: 400px;
+      width: 80%;
+      box-sizing: border-box;
+    }
+
+</style>
+<body bgcolor="#a175ff">
+
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; text-align: center;">
+<div id="messageContainer" style="background-color: #ffffff;">
+<h1 style="color: purple; font-size: 50px;">Welcome!</h1>
+<p>Register Account</p>
+<form>
+  <input type="text" placeholder="Username"><br><br>
+  <input type="password" placeholder="Password (be strong)"><br><br>
+  <button type="button" onclick="document.getElementById('msg').style.display='block'">Register</button>
+</form>
+<p id="msg" style="color: red; display: none;">One or more of your inputs severely<br>violates our Terms of Service.</p>
+</div>
+</div>
+
+</body>
+</html>
